@@ -10,9 +10,9 @@ class ProjectController extends Controller
 {
     public function index(Request $request){
 
-        if(isset($request->title) && ($request->title != null))
+        if(isset($request->title))
         {
-            $projects = Project::where('title',$request->title)->with('type')->paginate(16);
+            $projects = Project::where('title','like',$request->title.'%')->with('type')->orderBy('id', 'asc')->paginate(16);
         }
         else
             $projects = Project::with('type')->paginate(16);
